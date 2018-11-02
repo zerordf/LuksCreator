@@ -1,5 +1,5 @@
 # LuksCreator
-## This Bashs scripts is used to create a crypt volume in your system.
+## These Bashs scripts is used to create a crypt volume in your system.
 
 
 ### Usage
