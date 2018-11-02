@@ -1,39 +1,46 @@
 #!/bin/bash
 
+#colors
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33'
+NC='\033[0m' # No Color
 
-printf "[*] Process of the current script $$ \n"
-printf "[+] Type the amount of GB you want in yout partition: \n"
+
+printf "${RED}[*] Process of the current script $$\n ${NC}"
+printf "${GREEN}[+] Type the amount of GB you want in yout partition: \n${NC}"
 read amountGB
-printf "[+] $amountGB choosed \n"
+printf "${BLUE}[+] $amountGB choosed \n${NC}"
 
-printf "[*] making calculations with $amountGB\n"
+printf "${BLUE}[*] making calculations with $amountGB\n ${NC}"
 
 amountMB=$(expr 1024 \* $amountGB)
-printf "[+] total amount in to create a partition: $amountMB \n"
+printf "${GREEN}[+] total amount in to create a partition: $amountMB \n${NC}"
 
 printf "[+] type your home user: \n"
 read homeUser
 
-printf "[*] your user is: $homeUser"
-printf "[*] init the process creating size: $amountGB GB\n"
+printf "[*] your user is: $homeUser\n"
+printf "${RED}[*] init the process creating size: $amountGB GB\n ${NC}"
 sudo dd if=/dev/zero of=/home/$homeUser/crypt bs=1M count=$amountMB
-printf "[*] size of $amountMB was created.. with name 'crypt' \n"
+printf "${GREEN}[*] size of $amountMB was created.. with name 'crypt' \n${NC}"
 ls -lha /home/$homeUser | grep -i crypt
 printf "[*] \n\n"
 
 printf "[*] creating luks Format \n"
 sudo cryptsetup luksFormat /home/$homeUser/crypt
 file /home/$homeUser/crypt
-printf "[*] process end"
+printf "${RED}[*] process end \n${NC}"
 
-printf "[*] choose one name to map your partition luks"
+printf "[*] choose one name to map your partition luks\n"
 read mapName
 
 
-printf "[*] Open partition \n"
+printf "${RED}[*] Open partition \n${NC}"
 sudo cryptsetup luksOpen /home/$homeUser/crypt $mapName
 
-printf "[*] Creating a mapping file on /media/files"
+printf "${RED}[*] Creating a mapping file on /media/files\n ${NC}"
 sudo mkfs.ext4 -j /dev/mapper/$mapName
 sudo mkdir /media/files
 sudo mount /dev/mapper/$mapName /media/files
