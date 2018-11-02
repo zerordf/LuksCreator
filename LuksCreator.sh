@@ -7,6 +7,8 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33'
 NC='\033[0m' # No Color
 
+printf "${BLUE} Script made by: z3r0rdf ${NC}"
+print "${RED} v0.1 ${NC}"
 
 printf "${RED}[*] Process of the current script $$\n ${NC}"
 printf "${GREEN}[+] Type the amount of GB you want in yout partition: \n${NC}"
